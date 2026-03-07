@@ -55,27 +55,16 @@
       animation: slideDown 0.8s ease-out;
     }
 
-    .app-icon {
-      width: 100px;
-      height: 100px;
-      margin: 0 auto 25px;
-      background: white;
-      border-radius: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 50px;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-      border: 3px solid #fff;
+    .logo {
+      margin-bottom: 25px;
     }
 
-    .app-title {
-      color: white;
-      font-size: 42px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      font-family: 'Almarai', sans-serif;
+    .logo img {
+      width: 120px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.2));
     }
 
     .app-description {
@@ -274,16 +263,8 @@
         margin-bottom: 40px;
       }
 
-      .app-icon {
-        width: 80px;
-        height: 80px;
-        font-size: 40px;
-        margin-bottom: 18px;
-      }
-
-      .app-title {
-        font-size: 32px;
-        margin-bottom: 10px;
+      .logo img {
+        width: 90px;
       }
 
       .app-description {
@@ -364,11 +345,13 @@
 
   <div class="container">
     <!-- رأس الصفحة -->
-    <div class="header">
-      <div class="app-icon">👔</div>
-      <h1 class="app-title">White</h1>
-      <p class="app-description">تطبيقك الموثوق للعناية بالملابس بجودة عالية وسهولة كاملة</p>
-    </div>
+    <header class="header">
+      <div class="logo">
+        <img src="logo.png" alt="Logo White App" />
+      </div>
+      <p class="app-description">
+      </p>
+    </header>
 
     <!-- قسم التحميل -->
     <div class="download-section">
@@ -405,34 +388,6 @@
           </div>
         </a>
       </div>
-
-      <!-- قسم المميزات -->
-      <div class="features-section">
-        <div class="features-title">
-          <span>✨</span>
-          <span>لماذا اختيار White؟</span>
-        </div>
-        <div class="features-list">
-          <div class="feature-item">
-            <span class="feature-icon">✓</span>
-            <span>خدمات عناية احترافية بأعلى معايير الجودة</span>
-          </div>
-          <div class="feature-item">
-            <span class="feature-icon">✓</span>
-            <span>توفير الوقت والجهد في حياتك اليومية</span>
-          </div>
-          <div class="feature-item">
-            <span class="feature-icon">✓</span>
-            <span>واجهة سهلة وسريعة للحجز والدفع</span>
-          </div>
-          <div class="feature-item">
-            <span class="feature-icon">✓</span>
-            <span>تطبيق آمن وموثوق 100%</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
 </body>
 
