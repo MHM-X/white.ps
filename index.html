@@ -1,395 +1,526 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="White Laundry App" />
 <link rel="icon" type="image/png" href="/applogo.png">
-  <meta charset="UTF-8" />
-  <meta name="description" content="White Laundry App" />
-  <title>White</title>
+<title>White</title>
 
-  <!-- خط Jua -->
-  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet" />
+<!-- Fonts: Jua for display/headings, Manrope for body copy -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Jua', sans-serif;
-      background-color: #f9f9f9;
-      color: #222;
-      line-height: 1.8;
-      scroll-behavior: smooth;
+<style>
+  :root {
+    --indigo: #141d95;
+    --indigo-light: #3f51b5;
+    --navy: #0d146b;
+    --accent: #2fd1c5;
+    --accent-soft: #e3fbf8;
+    --bg: #f7f8fc;
+    --text: #1e2233;
+    --text-muted: #5b6072;
+    --white: #ffffff;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: 'Manrope', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  h1, h2, .nav-title, .download-btn, .logo {
+    font-family: 'Jua', sans-serif;
+  }
+
+  /* Navigation */
+  nav {
+    background-color: var(--indigo);
+    padding: 14px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 10px rgba(13, 20, 107, 0.25);
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .nav-title {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-logo {
+    width: 52px;
+    height: auto;
+    display: block;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 26px;
+    flex-wrap: wrap;
+  }
+
+  .nav-links a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    position: relative;
+    white-space: nowrap;
+    opacity: 0.92;
+    transition: opacity 0.2s ease;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0%;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.25s ease;
+  }
+
+  .nav-links a:hover {
+    opacity: 1;
+  }
+
+  .nav-links a:hover::after {
+    width: 100%;
+  }
+
+  /* Header / Hero */
+  header {
+    position: relative;
+    background: linear-gradient(160deg, var(--indigo) 0%, var(--indigo-light) 100%);
+    color: white;
+    text-align: center;
+    padding: 70px 20px 110px;
+    overflow: hidden;
+  }
+
+  .hero-bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.10);
+    pointer-events: none;
+  }
+
+  .hero-bubble.b1 { width: 90px; height: 90px; top: 14%; left: 8%; animation: float 7s ease-in-out infinite; }
+  .hero-bubble.b2 { width: 50px; height: 50px; top: 62%; left: 16%; animation: float 5.5s ease-in-out infinite 0.4s; }
+  .hero-bubble.b3 { width: 130px; height: 130px; top: 8%; right: 6%; animation: float 8s ease-in-out infinite 0.2s; }
+  .hero-bubble.b4 { width: 46px; height: 46px; top: 58%; right: 14%; animation: float 6s ease-in-out infinite 0.6s; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-14px); }
+  }
+
+  .logo {
+    position: relative;
+    z-index: 2;
+  }
+
+  .logo img {
+    width: 64px;
+    height: auto;
+    display: block;
+    margin: 0 auto 18px;
+  }
+
+  .tagline {
+    position: relative;
+    z-index: 2;
+    font-size: 17px;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    line-height: 1.7;
+    max-width: 560px;
+    margin: 0 auto;
+    font-family: 'Manrope', sans-serif;
+  }
+
+  .hero-wave {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    line-height: 0;
+  }
+
+  .hero-wave svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Sections */
+  section {
+    padding: 60px 20px;
+    max-width: 900px;
+    margin: auto;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  section h2 {
+    display: inline-block;
+    font-size: 26px;
+    color: var(--navy);
+    margin: 0 0 22px;
+  }
+
+  section h2::after {
+    content: '';
+    display: block;
+    width: 46px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 2px;
+    margin-top: 12px;
+  }
+
+  section p {
+    color: var(--text-muted);
+    font-size: 16px;
+  }
+
+  section p strong {
+    color: var(--text);
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, #dde1ee, transparent);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* Download section */
+  #download {
+    background: linear-gradient(135deg, rgba(20, 29, 149, 0.05), rgba(47, 209, 197, 0.06));
+  }
+
+  .download-cta {
+    position: relative;
+    text-align: center;
+    padding: 46px 24px;
+    background: var(--white);
+    border-radius: 20px;
+    margin-top: 28px;
+    box-shadow: 0 12px 32px rgba(20, 29, 149, 0.12);
+    border: 1px solid #eef0f8;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+  }
+
+  .download-cta::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 160px;
+    height: 160px;
+    background: var(--accent-soft);
+    border-radius: 50%;
+    z-index: 0;
+  }
+
+  .download-cta:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(20, 29, 149, 0.18);
+  }
+
+  .download-cta p {
+    position: relative;
+    z-index: 1;
+    font-size: 16px;
+    color: var(--text-muted);
+    margin: 0 0 24px 0;
+    line-height: 1.7;
+  }
+
+  .download-btn {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    padding: 15px 42px;
+    background: linear-gradient(135deg, var(--indigo), var(--indigo-light));
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 0.3px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .download-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 24px rgba(20, 29, 149, 0.35);
+  }
+
+  /* Contact link */
+  .whatsapp-link {
+    color: var(--indigo);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    border: 2px solid var(--indigo);
+    border-radius: 10px;
+    transition: all 0.25s ease;
+  }
+
+  .whatsapp-link:hover {
+    background: var(--indigo);
+    color: white;
+  }
+
+  /* Footer */
+  footer {
+    background-color: var(--navy);
+    color: white;
+    text-align: center;
+    padding: 36px 15px 30px;
+  }
+
+  footer p {
+    margin: 6px 0;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .social-icons {
+    margin-top: 14px;
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    transition: all 0.2s ease;
+  }
+
+  .social-icons a:hover {
+    background: var(--accent);
+    transform: translateY(-3px);
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    section, .hero-bubble, .download-cta, .download-btn, .social-icons a {
+      transition: none !important;
+      animation: none !important;
     }
+    section { opacity: 1; transform: none; }
+  }
 
-    /* شريط التنقل */
+  /* Responsive */
+  @media (max-width: 768px) {
     nav {
-      background-color: #141d95;
-      padding: 15px 20px;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      flex-wrap: wrap;
-      gap: 15px;
+      justify-content: center;
     }
-
-    .nav-title {
-      color: white;
-      font-size: 24px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
     .nav-links {
-      display: flex;
-      gap: 25px;
-      flex-wrap: wrap;
+      gap: 18px;
+      justify-content: center;
+      width: 100%;
     }
+    header { padding: 56px 20px 90px; }
+    .logo img { width: 56px; }
+    .tagline { font-size: 15.5px; }
+  }
 
-    .nav-links a {
-      color: white;
-      text-decoration: none;
-      font-size: 16px;
-      transition: opacity 0.2s ease;
-      white-space: nowrap;
-    }
-
-    .nav-links a:hover {
-      opacity: 0.7;
-    }
-
-    /* الهيدر */
-    header {
-      background: linear-gradient(135deg, #141d95, #3f51b5);
-      color: white;
-      text-align: center;
-      padding: 60px 20px;
-      border-bottom: 4px solid #0d146b;
-    }
-
-    .logo {
-      font-size: 90px;
-      font-weight: bold;
-      margin: 0;
-      margin-bottom: 15px;
-    }
-
-    .tagline {
-      font-size: 16px;
-      color: rgba(255, 255, 255, 0.85);
-      font-weight: 300;
-      letter-spacing: 0.5px;
-      line-height: 1.6;
-      max-width: 600px;
-      margin: 0 auto;
-      font-family: 'Jua', sans-serif;
-      font-weight: 400;
-    }
-
-    /* الأقسام */
-    section {
-      padding: 50px 20px;
-      max-width: 900px;
-      margin: auto;
-    }
-
-    section h2 {
-      color: #141d95;
-      border-right: 4px solid #141d95;
-      padding-right: 10px;
-      margin-bottom: 15px;
-    }
-
-    .divider {
-      height: 2px;
-      background-color: #e0e0e0;
-      margin: 40px 0;
-    }
-
-    /* قسم التحميل */
-    #download {
-      background: linear-gradient(135deg, rgba(20, 29, 149, 0.08), rgba(63, 81, 181, 0.08));
-      border-top: 3px solid #141d95;
-      border-bottom: 3px solid #141d95;
-    }
-
-    .download-cta {
-      text-align: center;
-      padding: 40px 20px;
-      background: white;
-      border: 2px solid #141d95;
-      border-radius: 16px;
-      margin-top: 30px;
-      box-shadow: 0 6px 20px rgba(20, 29, 149, 0.15);
-      transition: all 0.3s ease;
-    }
-
-    .download-cta:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(20, 29, 149, 0.25);
-    }
-
-    .download-cta p {
-      font-size: 16px;
-      color: #555;
-      margin: 0 0 20px 0;
-      line-height: 1.6;
-    }
-
-    .download-btn {
-      display: inline-block;
-      padding: 14px 40px;
-      background: linear-gradient(135deg, #141d95, #3f51b5);
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 16px;
-      transition: all 0.3s ease;
-      border: none;
-      cursor: pointer;
-      font-family: 'Jua', sans-serif;
-    }
-
-    .download-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 20px rgba(20, 29, 149, 0.4);
-    }
-
-    /* الفوتر */
-    footer {
-      background-color: #141d95;
-      color: white;
-      text-align: center;
-      padding: 30px 15px;
-    }
-
-    footer p {
-      margin: 10px 0;
-      font-size: 14px;
-    }
-
-    .social-icons {
-      margin-top: 10px;
-    }
-
-    .social-icons a {
-      margin: 0 8px;
-      display: inline-block;
-      transition: transform 0.2s ease;
-    }
-
-    .social-icons a:hover {
-      transform: scale(1.15);
-    }
-
-    .nav-logo {
-      width: 60px;
-      height: auto;
-      display: block;
-    }
-
-    @media (max-width: 768px) {
-      nav {
-        flex-direction: column;
-        align-items: flex-end;
-      }
-
-      .nav-title {
-        font-size: 22px;
-        width: 100%;
-      }
-
-      .nav-links {
-        gap: 20px;
-        width: 100%;
-        justify-content: flex-end;
-      }
-
-      .nav-links a {
-        font-size: 15px;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .nav-links {
-        gap: 15px;
-        justify-content: flex-end;
-      }
-
-      .nav-links a {
-        font-size: 14px;
-      }
-
-      .nav-title {
-        font-size: 20px;
-      }
-
-      header .logo {
-        font-size: 70px;
-      }
-
-      section {
-        padding: 30px 15px;
-      }
-
-      section h2 {
-        font-size: 18px;
-      }
-
-      .download-cta {
-        padding: 30px 15px;
-      }
-
-      .download-btn {
-        font-size: 14px;
-        padding: 12px 30px;
-      }
-    }
-  </style>
+  @media (max-width: 600px) {
+    .nav-links a { font-size: 14px; }
+    section { padding: 44px 18px; }
+    section h2 { font-size: 21px; }
+    .download-cta { padding: 32px 18px; }
+    .download-btn { font-size: 14.5px; padding: 13px 32px; }
+    .hero-bubble.b3 { width: 80px; height: 80px; }
+    .hero-bubble.b1 { width: 60px; height: 60px; }
+  }
+</style>
 </head>
 
 <body>
 
-  <!-- شريط التنقل -->
+  <!-- Navigation -->
   <nav>
     <a href="#" class="nav-title" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-      <img src="white.png" alt="White Logo" class="nav-logo" />
+      <img src="white.png" alt="White logo" class="nav-logo" />
     </a>
     <div class="nav-links">
-      <a href="#about">نبذة</a>
-      <a href="white_download.html">تحميل</a>
-      <a href="#terms">الشروط والأحكام</a>
-      <a href="#privacy">سياسة الخصوصية</a>
-      <a href="#contact">الدعم الفني</a>
+      <a href="#about">About</a>
+      <a href="white_download.html">Download</a>
+      <a href="#terms">Terms &amp; Conditions</a>
+      <a href="#privacy">Privacy Policy</a>
+      <a href="#contact">Support</a>
     </div>
   </nav>
 
-  <style>
-    header {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      text-align: center;
-      padding: 40px 20px;
-    }
-
-    .logo img {
-      width: 60px;
-      height: auto;
-      display: block;
-      margin-bottom: 15px;
-    }
-
-    .tagline {
-      margin: 0;
-    }
-  </style>
-
-  <!-- رأس الصفحة -->
+  <!-- Header -->
   <header>
+    <span class="hero-bubble b1"></span>
+    <span class="hero-bubble b2"></span>
+    <span class="hero-bubble b3"></span>
+    <span class="hero-bubble b4"></span>
+
     <div class="logo">
-    <img src="logo.svg" alt="Logo White App" />    </div>
+      <img src="logo.svg" alt="White app logo" />
+    </div>
     <p class="tagline">
-      نحوّل خدمات العناية بالملابس إلى تجربة رقمية سهلة، لتوفير وقتك وجهدك
+      We're turning garment care into an easy digital experience — saving you time and effort.
     </p>
+
+    <div class="hero-wave">
+      <svg viewBox="0 0 1440 110" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,64 C240,110 480,20 720,40 C960,60 1200,110 1440,50 L1440,110 L0,110 Z" fill="#f7f8fc"></path>
+      </svg>
+    </div>
   </header>
 
-  <!-- نبذة عن التطبيق -->
+  <!-- About -->
   <section id="about">
-    <h2>نبذة عن التطبيق</h2>
+    <h2>About the App</h2>
     <p>
-      تطبيق <strong>White</strong> هو تطبيق مصمّم لتوفير وقتك وتسهيل مهامك اليومية، مما يمنحك أسلوب حياة أكثر راحة، من خلال خدمات عناية بالملابس بجودة وموثوقية عالية.
+      <strong>White</strong> is an app designed to save your time and simplify your daily tasks, giving you a more comfortable lifestyle through garment care services delivered with quality and reliability.
     </p>
   </section>
 
   <div class="divider"></div>
 
-  <!-- قسم التحميل -->
+  <!-- Download -->
   <section id="download">
-    <h2>حمّل التطبيق الآن</h2>
+    <h2>Download the App Now</h2>
     <div class="download-cta">
-      <p>احصل على تجربة سهلة وسريعة في العناية بملابسك مع تطبيق White المتاح على جميع الأجهزة</p>
-      <a href="white_download.html" class="download-btn">اضغط هنا للتحميل</a>
+      <p>Get a fast, easy garment care experience with the White app, available on all devices.</p>
+      <a href="white_download.html" class="download-btn">Download Now</a>
     </div>
   </section>
 
   <div class="divider"></div>
 
-  <!-- الشروط والأحكام -->
+  <!-- Terms -->
   <section id="terms">
-    <h2>الشروط والأحكام</h2>
+    <h2>Terms &amp; Conditions</h2>
     <p>
-      باستخدامك لتطبيق White، فإنك توافق على ما يلي:
-      <br>- يُمنع استخدام التطبيق لأي غرض مخالف للقانون أو مضر بالآخرين.
-      <br>- يحق للمطور تعديل هذه الشروط في أي وقت دون إشعار مسبق.
-      <br>- استمرارك في استخدام التطبيق يعني موافقتك على أي تحديث مستقبلي.
+      By using the White app, you agree to the following:
+      <br>— The app may not be used for any unlawful purpose or in a way that harms others.
+      <br>— The developer reserves the right to modify these terms at any time without prior notice.
+      <br>— Continued use of the app constitutes acceptance of any future updates.
     </p>
   </section>
 
   <div class="divider"></div>
 
-  <!-- سياسة الخصوصية -->
+  <!-- Privacy -->
   <section id="privacy">
-    <h2>سياسة الخصوصية</h2>
+    <h2>Privacy Policy</h2>
     <p>
-      نحن نحترم خصوصيتك ونلتزم بحماية بياناتك.  
-      لا نقوم بجمع أي بيانات شخصية إلا بقدر الحاجة لتشغيل التطبيق وتحسين أدائه.  
-      لا نشارك بياناتك مع أي جهة خارجية.
+      We respect your privacy and are committed to protecting your data.
+      We only collect personal data to the extent necessary to run the app and improve its performance.
+      We never share your data with any third party.
       <br>
-      إذا أردت حذف بياناتك يمكنك التواصل معنا من خلال رقم الدعم الفني في الأسفل.      
+      If you'd like your data deleted, you can reach us through the support contact below.
     </p>
   </section>
 
   <div class="divider"></div>
 
-  <!-- الدعم الفني -->
+  <!-- Support -->
   <section id="contact">
-    <h2>التواصل مع الدعم الفني</h2>
-    <p>إذا واجهت أي مشكلة أو تحتاج إلى المساعدة، يمكنك التواصل مباشرة مع فريق الدعم الفني عبر واتساب:</p>
+    <h2>Contact Support</h2>
+    <p>If you run into any issue or need help, you can reach our support team directly on WhatsApp:</p>
     <p>
-      <a href="https://wa.me/970594665809"
-         style="color: #141d95; text-decoration: none; font-weight: bold; font-size: 18px;"
-         target="_blank">
-        اضغط هنا للتواصل عبر واتساب 💬
+      <a href="https://wa.me/970594665809" class="whatsapp-link" target="_blank">
+        Chat with us on WhatsApp 💬
       </a>
     </p>
   </section>
 
-  <!-- التذييل -->
+  <!-- Footer -->
   <footer>
-    <p>© 2025 جميع الحقوق محفوظة لتطبيق White</p>
+    <p>© 2025 White App. All rights reserved.</p>
     <div class="social-icons">
-      <a href="https://www.linkedin.com/company/whitelaundry/about/" target="_blank" title="LinkedIn">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="20" height="20">
+      <a href="https://www.linkedin.com/in/mahmoud-malooh/" target="_blank" title="LinkedIn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="18" height="18">
           <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
         </svg>
       </a>
       <a href="https://www.facebook.com/profile.php?id=61582381426911" title="Facebook">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="20" height="20">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="18" height="18">
           <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
         </svg>
       </a>
       <a href="https://www.instagram.com/white.pls/?utm_source=ig_web_button_share_sheet" target="_blank" title="Instagram">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="20" height="20">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="18" height="18">
           <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
           <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
           <circle cx="17.5" cy="6.5" r="1.5"></circle>
         </svg>
       </a>
       <a href="mailto:contact@white.ps" title="Email">
-  <svg xmlns="http://www.w3.org/2000/svg"
-       viewBox="0 0 24 24"
-       fill="white"
-       width="20"
-       height="20">
-    <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-  </svg>
-</a>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="18" height="18">
+          <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+        </svg>
+      </a>
     </div>
   </footer>
+
+  <script>
+    // Reveal sections on scroll (skipped for users who prefer reduced motion)
+    var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var sections = document.querySelectorAll('section');
+
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+      sections.forEach(function (el) { el.classList.add('is-visible'); });
+    } else {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      sections.forEach(function (el) { observer.observe(el); });
+    }
+  </script>
 
 </body>
 </html>
